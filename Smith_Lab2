@@ -1,0 +1,21 @@
+#Nina Smith
+#06/23/19
+#GEOG 682 Lab 2
+
+import processing #import QGIS processing tools
+
+pdistricts = 'C:/Temp/Lab2/Police_Districts.shp'
+iface.addVectorLayer(pdistricts, "pdistricts","ogr") #add police districts to the map
+
+crimeinc = 'C:/Temp/Lab2/Crime_Incidents_in_2017.shp'
+iface.addVectorLayer(crimeinc,"crimeinc","ogr") #add crime incidents to the map
+
+processing.runalg("qgis:joinattributesbylocation",
+    {'TARGET':'C:/Temp/Lab2/Police_Districts.shp',
+    "JOIN":'C:/Temp/Lab2/Crime_Incidents_in_2017.shp',
+    "PREDICATE":u'contains',
+    "SUMMARY":1,
+    "KEEP":0,
+    "OUTPUT":'C:/Temp/Lab2/lab2output5.shp'})
+
+#The police district had the most crime incidents in 2017 with 5964 incidents.
